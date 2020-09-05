@@ -25,4 +25,37 @@ sample_external_url_response_ms{url="https://httpstat.us/503"} 298.5630035400390
 sample_external_url_response_ms{url="https://httpstat.us/200"} 306.61916732788086
 ```
 
-This service is developed in Python 3.7.
+## Requirements
+This service is developed in Python 3.7. 
+
+The following packages are required:
+* requests
+* prometheus_client
+
+The exact version of each package is specified in the `requirements.txt` file. To install the package, run:
+```
+pip install -r requirements.txt
+```
+
+## Docker Image
+This service is available as a docker image at https://hub.docker.com/r/qiuosier/prometheus_metrics
+
+Docker pull command:
+```
+docker pull qiuosier/prometheus_metrics
+```
+The docker image is based on `python:3.8-alpine`. Port 80 (HTTP) is exposed for the service.
+
+To run the docker image on local computer, use the following command
+```
+docker run -dit -p 8080:80 qiuosier/prometheus_metrics
+```
+This command maps the service to port 8080 on `localhost`. Once the docker image is running, the metrics will be available at http://localhost:8080
+
+## Kubernetes Deployment Specifications
+The `deployment.yaml` file contains specifications for deploying this service to a kubernetes cluster using the docker image (`qiuosier/prometheus_metrics`)
+
+The following command will deploy the service on the kubernetes cluster authenticated with your account.
+```
+kubectl apply -f deployment.yaml
+```
