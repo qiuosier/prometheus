@@ -1,6 +1,8 @@
 # Prometheus Metric Monitoring Example
 This is a uptime check monitoring service designed to be deployed on Kubernetes Cluster.
 
+[![Coverage Status](https://coveralls.io/repos/github/qiuosier/prometheus/badge.svg?branch=master)](https://coveralls.io/github/qiuosier/prometheus?branch=master)
+
 This service can be accessed via any endpoint address with HTTP GET request, including `/metrics`, e.g. https://example.com/metrics.
 
 When the endpoint is accessed, this service checks the following two external URLs and return 4 metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/#text-format-example).
@@ -97,3 +99,5 @@ The `tests.py` contains unit tests for these three functions. Tests can be execu
 ```
 python -m unittest discover -v -s . -p "test*.py"
 ```
+
+This repository uses travis-ci to perform automated testing whenever a commit is pushed to the master branch. The test coverage is available at https://coveralls.io/github/qiuosier/prometheus
