@@ -44,13 +44,19 @@ This service can be started by the following command:
 ```
 python app.py
 ```
-By default, the service will check the two URLs every one second.
+By default, there will be a 1 second delay between two subsequent uptime check.
 
 Optionally, you can specify the time interval between two checks by passing a number with the command:
 ```
 python app.py 5
 ```
-The above command will perform the uptime check every 5 seconds.
+The above command will perform the uptime check 5 seconds after the previous check. Note that this is the time interval between two subsequent checks. This does not mean the checks are performed every 5 seconds since the uptime check itself may take about 1 second, depending on the network connection and external service.
+
+The metrics will always return the most recent uptime check results. 
+
+This uptime time service will timeout if the URL fail to return any data in 5 seconds. Without timeout, the service may hang indefinitely if external URL does not response. Note that the timeout applies to data chunks instead of the whole connection. When timeout occurs, the URL is considered as down and the response time will be set to `inf`.
+
+See also: [Request Timeout](https://requests.readthedocs.io/en/master/user/quickstart/#timeouts)
 
 ## Docker Image
 This service is available as a docker image: [qiuosier/prometheus_metrics](https://hub.docker.com/r/qiuosier/prometheus_metrics)
@@ -79,3 +85,15 @@ The following command will deploy the service on the kubernetes cluster authenti
 kubectl apply -f deployment.yaml
 ```
 See also: [Kubernetes Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
+## Functions and Tests
+This service is built on 3 functions in `app.py`:
+* `check_url()`, Checks if a URL is up and track the response time by sending HTTP GET request.
+* `uptime_check()`, Performs uptime checks to two URLs.
+* `parse_arguments()`, Parses the command line arguments.
+
+The return values of `check_url()` and `uptime_check()` are mainly designed for testing purpose.
+The `tests.py` contains unit tests for these three functions. Tests can be executed with the following command:
+```
+python -m unittest discover -v -s . -p "test*.py"
+```
