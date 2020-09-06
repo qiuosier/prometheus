@@ -111,7 +111,7 @@ The following figure shows a simple query on the Prometheus server:
 ![Prometheus Server Query](artifacts/prometheus_server_query.png)
 
 The following figure visualizes the metrics in Grafana:
-![Grafana Graphs](artifacts/grafana.png)
+![Grafana Graphs](artifacts/Grafana.png)
 
 See also:
 * [Getting Started with Prometheus Server](https://prometheus.io/docs/prometheus/latest/getting_started/#getting-started)
