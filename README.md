@@ -77,6 +77,8 @@ This command maps the service to port 8080 on `localhost`. Once the docker image
 
 The docker image has a default entry point of `python` and default command/argument of `app.py`, which will start the service and perform the uptime check every one second.
 
+This repository uses Github action to automatically build and push the docker image to Docker Hub.
+
 See also: [Docker Commands](https://docs.docker.com/engine/reference/commandline/docker/)
 
 ## Kubernetes Deployment Specifications
@@ -101,3 +103,16 @@ python -m unittest discover -v -s . -p "test*.py"
 ```
 
 This repository uses travis-ci to perform automated testing whenever a commit is pushed to the master branch. The test coverage is available at https://coveralls.io/github/qiuosier/prometheus
+
+## Prometheus Server
+The `prometheus.yml` file is an example config file for Prometheus server to monitor this service running locally on port 80.
+
+The following figure shows a simple query on the Prometheus server:
+![Prometheus Server Query](artifacts/prometheus_server_query.png)
+
+The following figure visualizes the metrics in Grafana:
+![Grafana Graphs](artifacts/grafana.png)
+
+See also:
+* [Getting Started with Prometheus Server](https://prometheus.io/docs/prometheus/latest/getting_started/#getting-started)
+* [Grafana Support for Prometheus](https://prometheus.io/docs/visualization/grafana/)
